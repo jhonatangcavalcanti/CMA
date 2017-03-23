@@ -5,10 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+import mongoose from 'mongoose'
 
-var app = express();
+import index from './routes/index'
+import article from './routes/article'
+import api from './routes/api'
+
+const app = express()
+
+// setting database
+// MONGODB will be defined when env is set to production
+const mongoDB = process.env.MONGODB || 'mongodb://localhost:27017/cma'
+mongoose.connect(mongoDB)
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
