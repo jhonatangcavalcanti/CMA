@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "rm -rf dist && npm run build && mkdir ./dist/bin && npm run build:www && node ./dist/bin/www",
+    "prestart": "rm -rf dist && npm run build && mkdir ./dist/bin && npm run build:www",
+    "start": "node ./dist/bin/www",
     "build": "babel src -d dist",
-    "build:www": "babel ./src/bin/www --out-file ./dist/bin/www"
+    "build:www": "babel ./src/bin/www --out-file ./dist/bin/www",
+    "pretest": "rm -rf specTrans && babel spec -d specTrans",
+    "test": "jasmine"
   },
   "dependencies": {
     "babel-cli": "^6.24.0",
@@ -19,6 +22,7 @@
     "morgan": "~1.7.0",
     "node-sass-middleware": "0.9.8",
     "pug": "~2.0.0-beta10",
+    "request": "^2.81.0",
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
