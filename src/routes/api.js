@@ -11,9 +11,13 @@ router
   })
   // Return all articles
   .get('/articles', apiController.articles_list_get)
-  // Create new article
-  .post('/article', apiController.article_create_post)
   // Return specific article
   .get('/article/:id', apiController.article_get)
-
+  // Create new article
+  .post('/article', apiController.article_create_post)
+  // Update article given id
+  .put('/article/:id', apiController.article_update_put)
+  // Delete article given id
+  .delete('/article/:id', apiController.article_delete)
+  
 export default router
