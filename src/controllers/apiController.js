@@ -3,8 +3,8 @@ import articleModel from '../models/articleModel'
 export default class apiController {
 
   static articles_list_get (req, res, next) {
-    articleModel.find({}, (err, articles) => {
-      if (err) { return next(err) }
+    articleModel.find({}, (err, articles) => { // TODO: specify each err and test all
+      if (err) return res.status(400).send(err) /*next(err)*/
       res.json(articles)
     })
   }
