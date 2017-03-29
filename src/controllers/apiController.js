@@ -32,6 +32,14 @@ export default class apiController {
       })
     })
   }
+
+  static article_delete(req, res, next) {
+    articleModel.remove({ _id: req.params.id }, (err, result) => {
+      if (err) return res.status(400).send(err)
+      res.json(result)
+    })
+  }
+
 }
 
 
