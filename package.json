@@ -9,7 +9,7 @@
     "test": "mocha",
     "predist": "export NODE_ENV=production rm -rf dist && mkdir ./dist/bin && npm run dist:www",
     "dist:www": "babel ./src/bin/www --out-file ./dist/bin/www",
-    "dist": "babel src -d dist",
+    "dist": "babel src -d dist"
   },
   "dependencies": {
     "babel-cli": "^6.24.0",
@@ -30,7 +30,9 @@
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-preset-env": "^1.2.2",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.18.0",
-    "jasmine": "^2.5.3"
+    "mocha": "^3.2.0"
   }
 }
