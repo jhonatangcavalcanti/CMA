@@ -22,10 +22,14 @@ export default class apiController {
     })
   }
 
-  static article_get (req, res, next) {
-    articleModel.find({ _id: req.params.id }, (err, article) => {
-      if (err) { return next(err) }
-      res.json(article)
+  static article_update_put(req, res, next) {
+    articleModel.findById(req.params.id, (err, article) => {
+      if (err) return res.status(400).send(err)
+      Object.assign(article, req.body).save((err, article) => {
+        if (err) return res.status(400).send(err)
+
+        res.json(article)
+      })
     })
   }
 }
