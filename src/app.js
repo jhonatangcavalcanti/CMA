@@ -16,6 +16,7 @@ const app = express()
 // setting database
 // MONGODB will be defined when env is set to production
 const mongoDB = process.env.MONGODB || 'mongodb://localhost:27017/cma'
+mongoose.Promise = global.Promise // resolves promise warning
 mongoose.connect(mongoDB)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error'))
