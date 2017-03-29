@@ -9,7 +9,14 @@ export default class apiController {
     })
   }
 
-  static article_create_post (req, res, next) {
+  static article_get (req, res, next) {
+    articleModel.findById(req.params.id, (err, article) => {
+      if (err) return res.status(400).send(err) /*next(err)*/
+      if (article == null) return res.sendStatus(404)
+      res.json(article)
+    })
+  }
+
     const article = new articleModel({
       title: req.body.title,
       content: req.body.content
