@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import express from 'express'
 import path from 'path'
 // import favicon from 'favicon'
@@ -15,7 +18,10 @@ const app = express()
 
 // setting database
 // MONGODB will be defined when env is set to production
-const mongoDB = process.env.MONGODB || 'mongodb://localhost:27017/cma'
+console.log(process.env.NODE_ENV, process.env.MONGO_DB_TEST_URL, process.env.MONGO_DB_TEST_URL)
+const mongoDB = process.env.NODE_ENV == 'test' && process.env.MONGO_DB_TEST_URL ||
+                process.env.NODE_ENV == 'development' && process.env.MONGO_DB_DEV_URL
+console.log(mongoDB)
 mongoose.Promise = global.Promise // resolves promise warning
 mongoose.connect(mongoDB)
 const db = mongoose.connection
