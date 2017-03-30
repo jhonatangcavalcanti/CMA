@@ -6,9 +6,7 @@ const router = express.Router()
 
 router
   // Home page
-  .get('/', (req, res) => {
-    res.send('API info')
-  })
+  .get('/', apiController.index)
   // Return all articles
   .get('/articles', apiController.articles_list_get)
   // Return specific article
@@ -19,5 +17,5 @@ router
   .put('/article/:id', apiController.article_update_put)
   // Delete article given id
   .delete('/article/:id', apiController.article_delete)
-  
+
 export default router

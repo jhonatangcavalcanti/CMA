@@ -2,6 +2,10 @@ import articleModel from '../models/articleModel'
 
 export default class apiController {
 
+  static index(req, res, next) {
+    res.send('API info: GET /articles to all articles or GET /article/:id to specific article')
+  }
+
   static articles_list_get (req, res, next) {
     articleModel.find({}, (err, articles) => { // TODO: specify each err and test all
       if (err) return res.status(400).send(err) /*next(err)*/
