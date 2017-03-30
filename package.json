@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prestart": "export NODE_ENV=development",
-    "start": "babel-node ./src/bin/www",
-    "pretest": "export NODE_ENV=test",
-    "test": "mocha",
-    "predist": "export NODE_ENV=production rm -rf dist && mkdir ./dist/bin && npm run dist:www",
+    "prestart": "",
+    "start": "NODE_ENV=development babel-node ./src/bin/www",
+    "pretest": "",
+    "test": "NODE_ENV=test mocha",
+    "predist": "rm -rf dist && mkdir ./dist/bin && npm run dist:www",
     "dist:www": "babel ./src/bin/www --out-file ./dist/bin/www",
-    "dist": "babel src -d dist"
+    "dist": "NODE_ENV=production babel src -d dist"
   },
   "dependencies": {
     "babel-cli": "^6.24.0",
