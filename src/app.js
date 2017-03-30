@@ -10,8 +10,6 @@ import bodyParser from 'body-parser'
 
 import mongoose from 'mongoose'
 
-import index from './routes/index'
-import article from './routes/article'
 import api from './routes/api'
 
 const app = express()
@@ -39,16 +37,8 @@ if (process.env.NODE_ENV == 'development') {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
-}))
-app.use(express.static(path.join(__dirname, '..', 'public')))
 
-app.use('/', index)
-app.use('/article', article)
+app.get('/', (req, res) => res.redirect('/api'))
 app.use('/api', api)
 
 // catch 404 and forward to error handler
@@ -66,7 +56,8 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+  res.send(err) // TODO: verify errors
+  // res.render('error')
 })
 
 // module.exports = app
