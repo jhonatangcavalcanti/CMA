@@ -22,16 +22,16 @@ export default class apiController {
   }
 
   static article_create_post (req, res, next) { // TODO: should validate data?
+    //TODO: handle image and create image path
+
     const article = new articleModel({
       title: req.body.title,
-      image_path: req.body.image_path,
       content: req.body.content,
       date: req.body.date
     })
 
     article.save((err) => {
       if (err) return res.status(400).send(err) /*return next(err)*/
-
       res.json({article})
     })
   }
