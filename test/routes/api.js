@@ -21,13 +21,9 @@ describe('API', () => {
       chai.request(server)
       .get(`/api/articles`)
       .end((err, res) => {
-        // console.log(err)
         res.should.have.status(200)
         res.body.should.be.a('array')
         res.body.length.should.be.eql(0)
-        // expect(res.statusCode).toEqual(200)
-        // expect(200).toEqual(res.status)
-        // expect(Array.isArray(body)).toBe(true)
         done()
       })
     })
@@ -36,7 +32,6 @@ describe('API', () => {
       let article = new Article({
         title: 'Test title',
         content: 'Test content',
-        image_path: 'Test_image_path',
         date: Date.now()
       })
       article.save((err, article) => {
@@ -47,7 +42,6 @@ describe('API', () => {
             res.body.should.have.a('object')
             res.body.should.have.property('title')
             res.body.should.have.property('content')
-            res.body.should.have.property('image_path')
             res.body.should.have.property('date')
             res.body.should.have.property('_id').eql(article.id)
             done()
@@ -80,9 +74,8 @@ describe('API', () => {
   })
 
   describe('POST routes', () => {
-    it('/api/article should not POST a book without title and returns 200', (done) => {
+    it('/api/article should not POST a book without title and returns 400', (done) => {
       let article = {
-        image_path: 'path of an image',
         content: 'Content test',
         date: Date.now
       }
@@ -101,7 +94,6 @@ describe('API', () => {
 
     it('/api/article should not POST a book without content and returns 200', (done) => {
       let article = {
-        image_path: 'path of an image',
         title: 'Content title',
         date: Date.now
       }
@@ -122,7 +114,6 @@ describe('API', () => {
       let article = {
         title: 'Test title',
         content: 'Test content',
-        image_path: 'Test_image_path',
         date: Date.now
       }
       chai.request(server)
@@ -134,7 +125,6 @@ describe('API', () => {
           // res.body.should.have.property('message').
           res.body.article.should.have.property('title')
           res.body.article.should.have.property('content')
-          res.body.article.should.have.property('image_path')
           res.body.article.should.have.property('date')
           done()
         })
@@ -147,13 +137,12 @@ describe('API', () => {
       let article = new Article({
         title: 'Test title',
         content: 'content',
-        image_path: 'path',
         date: '2017-03-28T20:16:31.101Z'
       })
       article.save((err, article) => {
         chai.request(server)
           .put(`/api/article/${article.id}`)
-          .send({title: 'New test title', content: 'content', image_path: 'path', date: '2017-03-28T20:16:31.101Z'})
+          .send({title: 'New test title', content: 'content', date: '2017-03-28T20:16:31.101Z'})
           .end((err, res) => {
             res.should.have.status(200)
             res.body.should.have.a('object')
@@ -169,11 +158,9 @@ describe('API', () => {
       let article = new Article({
         title: 'Test title',
         content: 'content',
-        image_path: 'path',
         date: Date.now()
       })
       article.save((err, article) => {
-        // console.log(err, article)
         chai.request(server)
           .delete(`/api/article/${article.id}`)
           .end((err, res) => {
