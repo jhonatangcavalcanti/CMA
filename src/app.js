@@ -15,11 +15,8 @@ import api from './routes/api'
 const app = express()
 
 // setting database
-// MONGODB will be defined when env is set to production
-console.log(process.env.NODE_ENV, process.env.MONGO_DB_TEST_URL, process.env.MONGO_DB_TEST_URL)
 const mongoDB = process.env.NODE_ENV == 'test' && process.env.MONGO_DB_TEST_URL ||
                 process.env.NODE_ENV == 'development' && process.env.MONGO_DB_DEV_URL
-console.log(mongoDB)
 mongoose.Promise = global.Promise // resolves promise warning
 mongoose.connect(mongoDB)
 const db = mongoose.connection
