@@ -1,4 +1,6 @@
 import express from 'express'
+import multer from 'multer'
+const upload = multer({ dest: 'public/images/' })
 // import { articles_list_get, article_create_post, article_get } from '../controllers/apiController'
 import apiController from '../controllers/apiController'
 
