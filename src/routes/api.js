@@ -18,9 +18,9 @@ router
   // Get image given image id
   .get('/article/image/:id', apiController.get_image) // or this? or both?
   // Create new article
-  .post('/article', apiController.article_create_post)
+  .post('/article', upload.single('image'), apiController.article_create_post)
   // Update article given id
-  .put('/article/:id', apiController.article_update_put)
+  .put('/article/:id', upload.single('image'), apiController.article_update_put)
   // Delete article given id
   .delete('/article/:id', apiController.article_delete)
 
