@@ -32,6 +32,7 @@ describe('API', () => {
       let article = new Article({
         title: 'Test title',
         content: 'Test content',
+        image_id: 'Test_path',
         date: Date.now()
       })
       article.save((err, article) => {
@@ -43,6 +44,7 @@ describe('API', () => {
             res.body.should.have.property('title')
             res.body.should.have.property('content')
             res.body.should.have.property('date')
+            res.body.should.have.property('image_id')
             res.body.should.have.property('_id').eql(article.id)
             done()
           })
@@ -81,7 +83,7 @@ describe('API', () => {
       }
       chai.request(server)
         .post('/api/article')
-        .send(article)
+        .send({article: JSON.stringify(article)})
         .end((err, res) => {
           res.should.have.status(400) // TODO: 200 or 400? or 206?
           res.body.should.be.a('object')
@@ -99,7 +101,7 @@ describe('API', () => {
       }
       chai.request(server)
         .post('/api/article')
-        .send(article)
+        .send({article: JSON.stringify(article)})
         .end((err, res) => {
           res.should.have.status(400) // TODO: 200 or 400? or 206?
           res.body.should.be.a('object')
@@ -114,18 +116,20 @@ describe('API', () => {
       let article = {
         title: 'Test title',
         content: 'Test content',
+        image_id: 'Test_image_id',
         date: Date.now
       }
       chai.request(server)
         .post('/api/article')
-        .send(article)
-        .end((err, res) => {
+        .send({article: JSON.stringify(article)}) // change from (article) to <=
+        .end((err, res) => { // TODO: add image to be sent
           res.should.have.status(200)
           res.body.should.be.a('object')
           // res.body.should.have.property('message').
           res.body.article.should.have.property('title')
           res.body.article.should.have.property('content')
           res.body.article.should.have.property('date')
+          res.body.article.should.have.property('image_id')
           done()
         })
     })
