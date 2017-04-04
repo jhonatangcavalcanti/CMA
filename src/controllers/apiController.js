@@ -24,8 +24,22 @@ export default class apiController {
     })
   }
 
-  static article_create_post (req, res, next) { // TODO: should validate data?
-    //TODO: handle image and create image path
+  static article_get_image(req, res, next) {
+    //TODO: handle errors
+    articleModel.findById(req.params.id, (err, article) => {
+      if (err) return res.status(400).send(err)
+      const options = {
+        root: path.join(__dirname, '..', '..', 'public', 'images'),
+        headers: {
+          'Content-Type': 'image/jpg' // TODO: set right content type of each file
+        }
+      }
+      res.sendFile(article.image_id || '', options, (err) => {
+        if (err) res.send(err)
+        else console.log('Sent')
+      })
+    })
+  }
 
     const article = new articleModel({
       title: req.body.title,
