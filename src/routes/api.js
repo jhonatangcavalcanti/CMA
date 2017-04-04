@@ -13,6 +13,10 @@ router
   .get('/articles', apiController.articles_list_get)
   // Return specific article
   .get('/article/:id', apiController.article_get)
+  // Get image from article given id
+  .get('/article/:id/image', apiController.article_get_image) // this
+  // Get image given image id
+  .get('/article/image/:id', apiController.get_image) // or this? or both?
   // Create new article
   .post('/article', apiController.article_create_post)
   // Update article given id
