@@ -72,10 +72,17 @@ export default class apiController {
   static article_update_put(req, res, next) {
     articleModel.findById(req.params.id, (err, article) => {
       if (err) return res.status(400).send(err)
-      Object.assign(article, req.body).save((err, article) => {
+      const article_data = JSON.parse(req.body.article)
+      if (!req.file) { // if not updating a new file, get old id
+        article_data.image_id = article.image_id
+      } else {
+        article_data.image_id = req.file.filename
+      }
+      // Object.assign(article, req.body).save((err, article) => {
+      Object.assign(article, article_data).save((err, article) => {
         if (err) return res.status(400).send(err)
 
-        res.json(article)
+        res.json({article})
       })
     })
   }
@@ -88,6 +95,3 @@ export default class apiController {
   }
 
 }
-
-
-// export { articles_list_get, article_create_post, article_get }
