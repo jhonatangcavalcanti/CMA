@@ -41,10 +41,16 @@ export default class apiController {
     })
   }
 
-    const article = new articleModel({
-      title: req.body.title,
-      content: req.body.content,
-      date: req.body.date
+  static get_image(req, res, next) {
+    const options = {
+      root: path.join(__dirname, '..', '..', 'public', 'images'),
+      headers: {
+        'Content-Type': 'image/jpg' // TODO: set right content type of each file
+      }
+    }
+    res.sendFile(req.params.id, options, (err) => {
+      if (err) res.send(err)
+      else console.log('Sent from /images/:id')
     })
 
     article.save((err) => {
