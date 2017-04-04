@@ -52,9 +52,19 @@ export default class apiController {
       if (err) res.send(err)
       else console.log('Sent from /images/:id')
     })
+  }
+
+  static article_create_post (req, res, next) { // TODO: should validate data?
+    //TODO: remove article.somthing, send article on body, like: title, content and image_id
+    const article_data = JSON.parse(req.body.article)
+    const article = new articleModel({
+      title: article_data.title,
+      content: article_data.content,
+      image_id: req.file && req.file.filename || article_data.image_id //
+    })
 
     article.save((err) => {
-      if (err) return res.status(400).send(err) /*return next(err)*/
+      if (err) return res.status(400).send(err)
       res.json({article})
     })
   }
