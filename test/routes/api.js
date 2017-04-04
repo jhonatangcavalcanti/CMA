@@ -146,11 +146,11 @@ describe('API', () => {
       article.save((err, article) => {
         chai.request(server)
           .put(`/api/article/${article.id}`)
-          .send({title: 'New test title', content: 'content', date: '2017-03-28T20:16:31.101Z'})
+          .send({article: JSON.stringify({title: 'New test title', content: 'content', date: '2017-03-28T20:16:31.101Z'})})
           .end((err, res) => {
             res.should.have.status(200)
             res.body.should.have.a('object')
-            res.body.should.have.property('title').eql('New test title')
+            res.body.article.should.have.property('title').eql('New test title')
             done()
           })
       })
